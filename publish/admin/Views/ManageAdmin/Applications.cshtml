@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Saas.Models.SaasApp>
+
+@{
+    ViewBag.Title = "Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Applications</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateApplication")
+</p>
+
+@if (Model.Count() > 0)
+{
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr @(ViewBag.newlyAdded == item.SaasAppId.ToString() ? "class=success" : "")>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditApplication", new { SaasAppId = item.SaasAppId }) |
+            @Html.ActionLink("Delete", "DeleteApplication", new { id = item.SaasAppId, name = item.Name })
+        </td>
+    </tr>
+}
+
+</table>
+
+<p class="text-success">@ViewBag.message</p>
+}
+else
+{
+    <p>No application present please add new</p>
+}

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Saas.UserManage.Models.RoleView>
+
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Roles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateRoles")
+</p>
+
+@if ( Model.Count() > 0)
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {       
+       <tr @(ViewBag.newlyAdded == item.Id ? "class=success" : "") >
+        
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditRoles", new { Id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteRole", new { id = item.Id,name=item.Name })
+            </td>
+        </tr>
+    }
+</table>
+<p class="text-success">@ViewBag.message</p>
+} else {
+    <p>No roles present please add new</p>
+ } 

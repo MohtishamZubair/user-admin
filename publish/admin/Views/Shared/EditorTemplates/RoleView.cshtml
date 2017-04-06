@@ -1,0 +1,7 @@
+﻿@model Saas.UserManage.Models.RoleView
+
+@Html.HiddenFor(x => x.Id)
+@Html.HiddenFor(x => x.Name)
+@Html.CheckBoxFor(x => x.IsChecked)
+@Html.LabelFor(x => x.IsChecked, Model.Name)
+<br /> 
