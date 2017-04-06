@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    var loginUserName = User.Identity.GetUserName();
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("WelCome " + loginUserName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        @if (User.IsInRole(SaasCore.Web.Helper.AppConstant.ADMIN_ROLE_NAME))
+        {
+        <li>
+            @Html.ActionLink("Users", "Users", "ManageAdmin", routeValues: null, htmlAttributes: new { title = "Manage Users" })
+        </li>
+        <li>
+            @Html.ActionLink("Roles", "Roles", "ManageAdmin", routeValues: null, htmlAttributes: new { title = "Manage Roles" })
+        </li>
+        <li>
+            @Html.ActionLink("Applications", "Applications", "ManageAdmin", routeValues: null, htmlAttributes: new { title = "Manage Applications" })
+        </li>
+        }
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
